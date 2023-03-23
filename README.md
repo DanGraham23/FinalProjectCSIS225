@@ -2,6 +2,8 @@
 Final project for CSIS 225
 Group Members: Amal Thomas, Aimen Harizi, Ammar Malik, Bailey Cross, Daniel Graham
 
+Spring 2021
+
 Program 1 - is a modified pong game. 
 Program 2 is a scene of a volcano a few modes
 pong game video demo: https://youtu.be/aQxFm1xF0Lo
