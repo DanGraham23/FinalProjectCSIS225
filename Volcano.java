@@ -24,7 +24,7 @@ public class Volcano extends MouseAdapter implements Runnable, ActionListener
     private JButton sunny;
 
     //List of ash objects to keep track of
-    private java.util.List<RockCloud> list;
+    private java.util.List<RockCloud> rockClouds;
 
     //Check if the first thread was started
     private boolean exploded = false;
@@ -168,11 +168,11 @@ public class Volcano extends MouseAdapter implements Runnable, ActionListener
                 // remove the ones that are done
 
                 int i = 0;
-                while (i < list.size()) {
+                while (i < rockClouds.size()) {
                     synchronized (lock){
-                        RockCloud curRock = list.get(i);
+                        RockCloud curRock = rockClouds.get(i);
                         if (curRock.done()) {
-                            list.remove(i);
+                            rockClouds.remove(i);
                         }
                         else {
                             curRock.paint(g);
@@ -205,7 +205,7 @@ public class Volcano extends MouseAdapter implements Runnable, ActionListener
         sunny.setVisible(false);
         panel.add(sunny);
         //Initialize the list of Ash objects
-        list = new ArrayList<RockCloud>();
+        rockClouds = new ArrayList<RockCloud>();
 
         // display the window we've created
         frame.pack();
@@ -219,21 +219,23 @@ public class Volcano extends MouseAdapter implements Runnable, ActionListener
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        RockCloud newRock;
+        RockCloud newRockCloud;
 
-        //Create ash object and add to the list of ash objects
+        //Create a rock rock with the correct type
+        //All rocks use the same image currently, this could be changed
+        // and implemented into the Rock abstract class in the future
         if (modes.getSelectedItem().equals("Casual")){
-            newRock = new RockCloud(panel, "slow", 30);
+            newRockCloud = new RockCloud(panel, "slow", 30);
         }else if (modes.getSelectedItem().equals("Intermediate")){
-            newRock = new RockCloud(panel, "fast", 60);
+            newRockCloud = new RockCloud(panel, "fast", 60);
         }else{
-            newRock = new RockCloud(panel, "windy", 20);
+            newRockCloud = new RockCloud(panel, "windy", 20);
         }
         exploded = true;
         synchronized (lock){
-            list.add(newRock);
+            rockClouds.add(newRockCloud);
         }
-        newRock.start();
+        newRockCloud.start();
         //panel.repaint();
     }
 
