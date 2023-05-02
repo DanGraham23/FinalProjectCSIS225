@@ -1,8 +1,5 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  * creat clouds that drop rocks
@@ -34,6 +31,11 @@ public class RockCloud extends Thread
 
     //The type of rock to fall
     private String type;
+
+    // the filename that will be loaded into snowPic
+    protected static final String rockPicFileName = "images/rock1.png";
+    
+    protected static Image rockPic;
 
     // an object to serve as the lock for thread safety of our list access
     private Object lock = new Object();
@@ -101,7 +103,9 @@ public class RockCloud extends Thread
         if (done) return;
         synchronized (lock){
             for (Rock curRock : rockCloud) {
-                curRock.paint(g);
+                if(!curRock.done){
+                    g.drawImage(RockCloud.rockPic, curRock.topL.x, curRock.topL.y, null);
+                }
             }
         }
 
@@ -121,11 +125,20 @@ public class RockCloud extends Thread
         synchronized (lock){
             // this Cloud is done if all of its flakes have melted
             for (Rock curRock : rockCloud) {
-                if (!curRock.done()) return false;
+                if (!curRock.done) return false;
             }
         }
 
         done = true;
         return true;
+    }
+
+    /**
+       Set the Image to be used by all Rock objects, to be 
+       called by the main method before the GUI gets set up
+    */
+    public static void loadRockPic() {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        RockCloud.rockPic = toolkit.getImage(rockPicFileName);
     }
 }

@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  * Creates an animated valcano scene with several different modes of destruction
@@ -274,7 +273,7 @@ public class Volcano extends MouseAdapter implements Runnable, ActionListener
 
     public static void main(String args[]) {
 
-        Rock.loadRockPic();
+        RockCloud.loadRockPic();
         Volcano.loadPics();
         
         // launch the main thread that will manage the GUI

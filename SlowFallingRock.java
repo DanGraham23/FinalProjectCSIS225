@@ -1,9 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.Color;
 
 /**
  * creates slow falling rocks
@@ -13,10 +8,6 @@ import java.awt.Color;
  */
 public class SlowFallingRock extends Rock
 {
-    //ySpeed for the falling Rock
-    private int ySpeed = 4;
-    
-    
     
     /**
     Construct a new SlowFallingRock object.
@@ -29,6 +20,8 @@ public class SlowFallingRock extends Rock
         this.bottom = panel.getHeight();
         this.done = false;
         this.topL = topL;
+        this.ySpeed = 4;
+        this.xSpeed = 0;
     }
 
     /**
@@ -52,27 +45,12 @@ public class SlowFallingRock extends Rock
             }
             catch (InterruptedException e) {
             }
-            topL.translate(0, ySpeed);
+            topL.translate(0, this.ySpeed);
             panel.repaint();
         }
 
         done = true;
         panel.repaint();
-    }
-
-    /**
-    This object's paint method. Paints the Rock to the screen.
-    @param g the graphics object to be painted to.
-     */
-    @Override
-    public void paint(Graphics g){
-
-        g.setColor(Color.GRAY);
-
-        if(!done){
-            g.drawImage(rockPic, topL.x, topL.y, null);
-        }
-
     }
     
 }

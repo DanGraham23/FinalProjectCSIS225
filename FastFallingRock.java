@@ -1,9 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.Color;
 
 /**
  * creates the fast falling rocks
@@ -13,14 +8,14 @@ import java.awt.Color;
  */
 public class FastFallingRock extends Rock
 {
-    //ySpeed for the falling Rock
-    private int ySpeed;
     
     public FastFallingRock(Component panel, Point topL){
         this.panel = panel;
         this.bottom = panel.getHeight();
         this.done = false;
         this.topL = topL;
+        this.ySpeed = 1;
+        this.xSpeed = 0;
     }
     
     /**
@@ -45,26 +40,11 @@ public class FastFallingRock extends Rock
             catch (InterruptedException e) {
             }
             topL.translate(0, ySpeed);
-            ySpeed += 2;
+            this.ySpeed += 2;
             panel.repaint();
         }
 
         done = true;
         panel.repaint();
-    }
-
-    /**
-    This object's paint method. Paints the Rock to the screen.
-    @param g the graphics object to be painted to.
-     */
-    @Override
-    public void paint(Graphics g){
-
-        g.setColor(Color.GRAY);
-
-        if(!done){
-            g.drawImage(rockPic, topL.x, topL.y, null);
-        }
-
     }
 }
